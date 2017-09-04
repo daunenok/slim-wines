@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wines</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+	<header>
+		<form action="/search" method="post">
+			<input type="text" name="search">
+			<button type="submit">Search</button>
+		</form>
+		<form action="/" method="post">
+			<button type="submit">New Wine</button>
+		</form>
+	</header>
+	<div class="left">
+		<ul id="wines">
+			{% for item in wines %}
+			<li><a href="/{{ item.id }}">{{ item.name }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="center">
+		<form action="/add" method="post" class="main-form">
+			<input type="hidden" name="id" value="{{ wine.id }}">
+			<label>Name:</label><br>
+			<input type="text" name="name" value="{{ wine.name }}"><br><br>
+			<label>Grapes:</label><br>
+			<input type="text" name="grapes" value="{{ wine.grapes }}"><br><br>
+			<label>Country:</label><br>
+			<input type="text" name="country"  value="{{ wine.country }}"><br><br>
+			<label>Region:</label><br>
+			<input type="text" name="region" value="{{ wine.region }}"><br><br>
+			<label>Year:</label><br>
+			<input type="text" name="year" value="{{ wine.year }}"><br><br>
+			<label>Notes:</label><br>
+			<textarea name="description">{{ wine.description}}</textarea><br><br>
+			<button type="submit">Save</button>
+		</form>
+	</div>
+	<div class="right">
+		<br><br><br><br><br>
+		{% if wine.picture %}
+		<img src="images/{{ wine.picture }}">
+		{% else %}
+		<img src="images/block_nine.jpg">
+		{% endif %}	
+		<br><br><br><br><br><br><br>
+		<form action="/{{ wine.id }}" method="post">
+			<input type="hidden" name="_METHOD" value="DELETE"/>
+			<button type="submit">Delete Wine</button>
+		</form>	
+	</div>
+</div>
+</body>
+</html>
